@@ -1,37 +1,12 @@
-import { View, Text, Image, ScrollView, Button, Alert } from "react-native";
+import { View, Text, Image, ScrollView, Button } from "react-native";
 import React from "react";
+import { mobiles } from "../constants/Data";
 
 export default function index() {
-  const mobiles = [
-    {
-      id: 1,
-      name: "Samsung",
-      price: "1,30,000",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY_ePQhD5vqHmFUHUI4IQu67PkCxh7AGanHA&s",
-    },
-    {
-      id: 2,
-      name: "Iphone",
-      price: "2,30,000",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY_ePQhD5vqHmFUHUI4IQu67PkCxh7AGanHA&s",
-    },
-    {
-      id: 3,
-      name: "Oppo",
-      price: "30,000",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY_ePQhD5vqHmFUHUI4IQu67PkCxh7AGanHA&s",
-    },
-    {
-      id: 4,
-      name: "Oneplus",
-      price: "50,000",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY_ePQhD5vqHmFUHUI4IQu67PkCxh7AGanHA&s",
-    },
-  ];
   return (
     <View>
       <Text style={{ fontWeight: "900", fontSize: 40 }}>Mobiles</Text>
-      <ScrollView>
+      <ScrollView style={{ marginBottom: 100 }}>
         {mobiles.map((item) => (
           <View
             key={item.id}
@@ -47,7 +22,7 @@ export default function index() {
               <Button
                 title="Add to cart"
                 onPress={() => {
-                  console.warn("Working");
+                  console.warn("Working", item);
                 }}
               />
             </View>
