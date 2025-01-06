@@ -1,8 +1,13 @@
 import { View, Text, Image, ScrollView, Button } from "react-native";
 import React from "react";
 import { mobiles } from "../constants/Data";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/actions/addToCart";
 
 export default function index() {
+  const data = useSelector((state) => state.reducer);
+  console.warn("Warning", data);
+
   return (
     <View>
       <Text style={{ fontWeight: "900", fontSize: 40 }}>Mobiles</Text>
@@ -22,7 +27,8 @@ export default function index() {
               <Button
                 title="Add to cart"
                 onPress={() => {
-                  console.warn("Working", item);
+                  useDispatch(addToCart(item));
+                  // console.warn("Working", item);
                 }}
               />
             </View>
