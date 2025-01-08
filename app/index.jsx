@@ -3,10 +3,16 @@ import React from "react";
 import { mobiles } from "../constants/Data";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/actions/addToCart";
+import { cartSelector } from "../redux/selectors/addToCart";
 
 export default function index() {
+  const dispatch = useDispatch();
   const data = useSelector((state) => state.reducer);
-  console.warn("Warning", data);
+  console.log("WarningWarning", data);
+
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
+  };
 
   return (
     <View>
@@ -27,7 +33,8 @@ export default function index() {
               <Button
                 title="Add to cart"
                 onPress={() => {
-                  useDispatch(addToCart(item));
+                  handleAddToCart(item);
+                  // dispatch(addToCart(item));
                   // console.warn("Working", item);
                 }}
               />
