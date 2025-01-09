@@ -7,7 +7,7 @@ import { cartSelector } from "../redux/selectors/addToCart";
 
 export default function index() {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.reducer);
+  const data = useSelector(cartSelector);
   console.log("WarningWarning", data);
 
   const handleAddToCart = (item) => {

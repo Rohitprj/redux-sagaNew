@@ -1,1 +1,1 @@
-export const cartSelector = (state) => state.reducer;
+export const cartSelector = (state) => state.addToCartReducer;
