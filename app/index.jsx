@@ -4,6 +4,8 @@ import { mobiles } from "../constants/Data";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/actions/addToCart";
 import { cartSelector } from "../redux/selectors/addToCart";
+import { Octicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 export default function index() {
   const dispatch = useDispatch();
@@ -20,8 +22,20 @@ export default function index() {
 
   return (
     <View>
-      <Text style={{ fontWeight: "900", fontSize: 40 }}>Mobiles</Text>
-      <Text style={{ fontWeight: "900", fontSize: 20 }}> Cart: {cart}</Text>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingHorizontal: 20,
+          alignItems: "center",
+        }}
+      >
+        <Text style={{ fontWeight: "900", fontSize: 40 }}>Mobiles</Text>
+        <Text style={{ fontWeight: "900", fontSize: 20 }}> Cart: {cart}</Text>
+        <Link href={"./auth"}>
+          <Octicons name="sign-in" size={24} color="black" />
+        </Link>
+      </View>
       <ScrollView style={{ marginBottom: 100 }}>
         {mobiles.map((item) => (
           <View
