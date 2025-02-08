@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { Link } from "expo-router";
 import React, { useState } from "react";
@@ -17,6 +18,7 @@ export default function SignupScreen() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const signUp = async (email, password) => {
     try {
@@ -54,15 +56,34 @@ export default function SignupScreen() {
         value={email}
         onChangeText={setEmail}
       />
-
-      <TextInput
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.passwordInput}
+          placeholder="Enter your password"
+          placeholderTextColor="#999"
+          secureTextEntry={!passwordVisible}
+          value={password}
+          onChangeText={setPassword}
+        />
+        <Pressable
+          onPress={() => setPasswordVisible(!passwordVisible)}
+          style={styles.eyeIconContainer}
+        >
+          <Ionicons
+            name={passwordVisible ? "eye-off" : "eye"}
+            size={24}
+            color="#999"
+          />
+        </Pressable>
+      </View>
+      {/* <TextInput
         style={styles.input}
         placeholder="Enter your password"
         placeholderTextColor="#999"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
-      />
+      /> */}
 
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up</Text>
@@ -114,6 +135,11 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
+  passwordContainer: {
+    position: "relative",
+    width: "100%",
+    marginTop: 15,
+  },
   button: {
     width: "100%",
     height: 50,
@@ -127,6 +153,26 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowRadius: 5,
     elevation: 5,
+  },
+  eyeIconContainer: {
+    position: "absolute",
+    right: 15,
+    top: 13,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  passwordInput: {
+    width: "100%",
+    height: 50,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
   },
   buttonText: {
     color: "#fff",
