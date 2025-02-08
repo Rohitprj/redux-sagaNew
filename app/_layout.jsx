@@ -8,9 +8,7 @@ import { Stack } from "expo-router";
 export default function _layout() {
   return (
     <Provider store={store}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Index />
-      </Stack>
+      <Stack screenOptions={{ headerShown: false }}>{/* <Index /> */}</Stack>
     </Provider>
   );
 }
