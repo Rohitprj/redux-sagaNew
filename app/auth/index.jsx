@@ -1,3 +1,5 @@
+import axios from "axios";
+import { Link } from "expo-router";
 import React, { useState } from "react";
 import {
   View,
@@ -6,30 +8,51 @@ import {
   TouchableOpacity,
   Alert,
   StyleSheet,
+  Pressable,
 } from "react-native";
 
 export default function SignupScreen() {
-  const [name, setName] = useState("");
+  // const BASE_URL = "http://192.168.0.187:3007/";
+  // const SIGNUP = BASE_URL + "auth/signUp";
+
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // const signUp = async (email, password) => {
+  //   try {
+  //     const response = await axios.post(SIGNUP, {
+  //       email: email,
+  //       password: password,
+  //     });
+  //     console.log("Response:", response.data);
+  //     Alert.alert("Success", "Signup successful!");
+  //   } catch (error) {
+  //     console.log("Error:", error.response?.data || error.message);
+  //     Alert.alert(
+  //       "Signup Failed",
+  //       error.response?.data?.message || "An error occurred."
+  //     );
+  //   }
+  // };
+
   const handleSignup = () => {
-    if (!name || !password) {
+    if (!email || !password) {
       Alert.alert("Error", "Both fields are required!");
       return;
     }
-    Alert.alert("Success", `Welcome, ${name}!`);
+    // signUp(email, password);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign Up</Text>
+      <Text style={styles.title}>Log In</Text>
 
       <TextInput
         style={styles.input}
-        placeholder="Enter your name"
+        placeholder="Enter your email"
         placeholderTextColor="#999"
-        value={name}
-        onChangeText={setName}
+        value={email}
+        onChangeText={setEmail}
       />
 
       <TextInput
@@ -42,8 +65,22 @@ export default function SignupScreen() {
       />
 
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
-        <Text style={styles.buttonText}>Sign Up</Text>
+        <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
+      <View style={{ flexDirection: "row", gap: 6, marginTop: 10 }}>
+        <Text style={{}}>Register as new user</Text>
+        <Link href={"/index"}>
+          <Text
+            style={{
+              color: "blue",
+              textAlign: "center",
+              textDecorationLine: "underline",
+            }}
+          >
+            Sign Up
+          </Text>
+        </Link>
+      </View>
     </View>
   );
 }

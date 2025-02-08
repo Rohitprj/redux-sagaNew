@@ -1,67 +1,136 @@
-import { View, Text, Image, ScrollView, Button } from "react-native";
-import React, { useEffect, useState } from "react";
-import { mobiles } from "../constants/Data";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../redux/actions/addToCart";
-import { cartSelector } from "../redux/selectors/addToCart";
-import { Octicons } from "@expo/vector-icons";
+import axios from "axios";
 import { Link } from "expo-router";
+import React, { useState } from "react";
+import {
+  View,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  Alert,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 
-export default function index() {
-  const dispatch = useDispatch();
-  const [cart, setCart] = useState(0);
-  const data = useSelector(cartSelector);
-  console.log("WarningWarning", data);
+export default function SignupScreen() {
+  const BASE_URL = "http://192.168.0.187:3007/";
+  const SIGNUP = BASE_URL + "auth/signUp";
 
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const signUp = async (email, password) => {
+    try {
+      const response = await axios.post(SIGNUP, {
+        email: email,
+        password: password,
+      });
+      console.log("Response:", response.data);
+      Alert.alert("Success", "Signup successful!");
+    } catch (error) {
+      console.log("Error:", error.response?.data || error.message);
+      Alert.alert(
+        "Signup Failed",
+        error.response?.data?.message || "An error occurred."
+      );
+    }
   };
-  useEffect(() => {
-    setCart(data.length);
-  }, [data]);
+
+  const handleSignup = () => {
+    if (!email || !password) {
+      Alert.alert("Error", "Both fields are required!");
+      return;
+    }
+    signUp(email, password);
+  };
 
   return (
-    <View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingHorizontal: 20,
-          alignItems: "center",
-        }}
-      >
-        <Text style={{ fontWeight: "900", fontSize: 40 }}>Mobiles</Text>
-        <Text style={{ fontWeight: "900", fontSize: 20 }}> Cart: {cart}</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Sign Up</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Enter your email"
+        placeholderTextColor="#999"
+        value={email}
+        onChangeText={setEmail}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Enter your password"
+        placeholderTextColor="#999"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+
+      <TouchableOpacity style={styles.button} onPress={handleSignup}>
+        <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
+      <View style={{ flexDirection: "row", gap: 6, marginTop: 10 }}>
+        <Text style={{}}>Already have an account</Text>
         <Link href={"./auth"}>
-          <Octicons name="sign-in" size={24} color="black" />
+          <Text
+            style={{
+              color: "blue",
+              textAlign: "center",
+              textDecorationLine: "underline",
+            }}
+          >
+            Log In
+          </Text>
         </Link>
       </View>
-      <ScrollView style={{ marginBottom: 100 }}>
-        {mobiles.map((item) => (
-          <View
-            key={item.id}
-            style={{ alignItems: "center", backgroundColor: "#ccffeb" }}
-          >
-            <Image
-              source={{ uri: item.img }}
-              style={{ height: 300, width: 150 }}
-            />
-            <Text style={{ textAlign: "center" }}>{item.name}</Text>
-            <Text style={{ textAlign: "center" }}>{item.price}</Text>
-            <View style={{ marginBottom: 10 }}>
-              <Button
-                title="Add to cart"
-                onPress={() => {
-                  handleAddToCart(item);
-                  // dispatch(addToCart(item));
-                  // console.warn("Working", item);
-                }}
-              />
-            </View>
-          </View>
-        ))}
-      </ScrollView>
     </View>
   );
 }
-// https://api.coindesk.com/v1/bpi/currentprice.json
+
+// Styles
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "lightgrey",
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    color: "#333",
+  },
+  input: {
+    width: "100%",
+    height: 50,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    marginTop: 15,
+    fontSize: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  button: {
+    width: "100%",
+    height: 50,
+    backgroundColor: "#007BFF",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+    shadowColor: "#007BFF",
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+});
