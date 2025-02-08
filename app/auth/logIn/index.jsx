@@ -68,8 +68,8 @@ export default function SignupScreen() {
         <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
       <View style={{ flexDirection: "row", gap: 6, marginTop: 10 }}>
-        <Text style={{}}>Register as new user</Text>
-        <Link href={"/index"}>
+        <Text style={{}}>New user</Text>
+        <Link href={"/"}>
           <Text
             style={{
               color: "blue",
