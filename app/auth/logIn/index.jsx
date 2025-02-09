@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 export default function SignupScreen() {
-  const BASE_URL = "http://192.168.0.187:3007/";
+  const BASE_URL = "http://192.168.0.187:3009/";
   const LOGIN = BASE_URL + "auth/logIn";
 
   const [email, setEmail] = useState("");
@@ -26,7 +26,7 @@ export default function SignupScreen() {
         password: password,
       });
       console.log("Response:", response.data);
-      Alert.alert("Success", "Signup successful!");
+      Alert.alert("Success", "Login successful!");
     } catch (error) {
       console.log("Error:", error.response?.data || error.message);
       Alert.alert(

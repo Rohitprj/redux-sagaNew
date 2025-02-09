@@ -13,7 +13,7 @@ import {
 } from "react-native";
 
 export default function SignupScreen() {
-  const BASE_URL = "http://192.168.0.187:3007/";
+  const BASE_URL = "http://192.168.0.187:3009/";
   const SIGNUP = BASE_URL + "auth/signUp";
 
   const [email, setEmail] = useState("");
