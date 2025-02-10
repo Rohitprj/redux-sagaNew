@@ -1,5 +1,4 @@
 import { Ionicons } from "@expo/vector-icons";
-import axios from "axios";
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -11,31 +10,12 @@ import {
   StyleSheet,
   Pressable,
 } from "react-native";
+import { signUp } from "../../../services/api/apiInstanceSignUp";
 
 export default function SignupScreen() {
-  const BASE_URL = "http://192.168.0.187:3009/";
-  const SIGNUP = BASE_URL + "auth/signUp";
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const signUp = async (email, password) => {
-    try {
-      const response = await axios.post(SIGNUP, {
-        email: email,
-        password: password,
-      });
-      console.log("Response:", response.data);
-      Alert.alert("Success", "Signup successful!");
-    } catch (error) {
-      console.log("Error:", error.response?.data || error.message);
-      Alert.alert(
-        "Signup Failed",
-        error.response?.data?.message || "An error occurred."
-      );
-    }
-  };
 
   const handleSignup = () => {
     if (!email || !password) {
@@ -76,15 +56,6 @@ export default function SignupScreen() {
           />
         </Pressable>
       </View>
-      {/* <TextInput
-        style={styles.input}
-        placeholder="Enter your password"
-        placeholderTextColor="#999"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      /> */}
-
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
