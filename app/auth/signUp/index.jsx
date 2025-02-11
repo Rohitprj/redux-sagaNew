@@ -67,7 +67,7 @@ export default function SignupScreen() {
       </TouchableOpacity>
 
       {loading && <Text>Loading...</Text>}
-      {error && <Text style={{ color: "red" }}>{error}</Text>}
+      {error && <Text style={{ color: "red" }}>errorMessage:{error}</Text>}
       {signupMessage && <Text style={{ color: "green" }}>{signupMessage}</Text>}
 
       <View style={{ flexDirection: "row", gap: 6, marginTop: 10 }}>
