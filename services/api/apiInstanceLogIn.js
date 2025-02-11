@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const BASE_URL = "http://192.168.0.253:3009/";
 const LOGIN = BASE_URL + "auth/logIn";
 
