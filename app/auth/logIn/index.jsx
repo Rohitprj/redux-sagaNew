@@ -11,17 +11,22 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { logIn } from "../../../services/api/apiInstanceLogIn";
+import { useDispatch, useSelector } from "react-redux";
+import { loginRequest } from "../../../redux/actions/auth";
 export default function SignupScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
+  const dispatch = useDispatch();
+  const { loading, error, token } = useSelector((state) => state.auth);
   const handleSignup = () => {
     if (!email || !password) {
       Alert.alert("Error", "Both fields are required!");
       return;
     }
-    logIn(email, password);
+    dispatch(loginRequest(email, password));
+    // logIn(email, password);
   };
 
   return (
@@ -60,6 +65,9 @@ export default function SignupScreen() {
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
+      {loading && <Text>Loading...</Text>}
+      {error && <Text style={{ color: "red" }}>{error}</Text>}
+      {token && <Text style={{ color: "green" }}>Login Successful!</Text>}
       <View style={{ flexDirection: "row", gap: 6, marginTop: 10 }}>
         <Text style={{}}>New user</Text>
         <Link href={"../../auth/signUp"}>

@@ -11,18 +11,24 @@ import {
   Pressable,
 } from "react-native";
 import { signUp } from "../../../services/api/apiInstanceSignUp";
+import { useDispatch } from "react-redux";
+import { signupRequest } from "../../../redux/actions/auth";
 
 export default function SignupScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
+  const dispatch = useDispatch();
+  const { loading, error, signupMessage } = useSelector((state) => state.auth);
+
   const handleSignup = () => {
     if (!email || !password) {
       Alert.alert("Error", "Both fields are required!");
       return;
     }
-    signUp(email, password);
+    dispatch(signupRequest(email, password));
+    // signUp(email, password);
   };
 
   return (
@@ -59,6 +65,11 @@ export default function SignupScreen() {
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
+
+      {loading && <Text>Loading...</Text>}
+      {error && <Text style={{ color: "red" }}>{error}</Text>}
+      {signupMessage && <Text style={{ color: "green" }}>{signupMessage}</Text>}
+
       <View style={{ flexDirection: "row", gap: 6, marginTop: 10 }}>
         <Text style={{}}>Already have an account</Text>
         <Link href={"../../auth/logIn"}>
