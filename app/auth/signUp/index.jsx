@@ -11,7 +11,7 @@ import {
   Pressable,
 } from "react-native";
 import { signUp } from "../../../services/api/apiInstanceSignUp";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signupRequest } from "../../../redux/actions/auth";
 
 export default function SignupScreen() {
