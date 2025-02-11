@@ -1,4 +1,4 @@
-const BASE_URL = "http://192.168.0.187:3009/";
+const BASE_URL = "http://192.168.0.253:3009/";
 const LOGIN = BASE_URL + "auth/logIn";
 
 export const logIn = async (email, password) => {
