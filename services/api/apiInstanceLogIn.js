@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Alert } from "react-native";
 
-const BASE_URL = "http://192.168.0.187:3009/";
+const BASE_URL = process.env.URL;
 const LOGIN = BASE_URL + "auth/logIn";
 
 export const logIn = async (email, password) => {
