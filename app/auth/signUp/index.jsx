@@ -68,7 +68,9 @@ export default function SignupScreen() {
 
       {loading && <Text>Loading...</Text>}
       {error && <Text style={{ color: "red" }}>errorMessage:{error}</Text>}
-      {signupMessage && <Text style={{ color: "green" }}>{signupMessage}</Text>}
+      {signupMessage && (
+        <Text style={{ color: "green" }}>signupMessage:{signupMessage}</Text>
+      )}
 
       <View style={{ flexDirection: "row", gap: 6, marginTop: 10 }}>
         <Text style={{}}>Already have an account</Text>
